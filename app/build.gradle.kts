@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.seminario.bovintrack"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.seminario.bovintrack"
