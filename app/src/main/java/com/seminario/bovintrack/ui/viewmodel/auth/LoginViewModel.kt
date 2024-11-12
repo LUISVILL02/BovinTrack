@@ -45,6 +45,7 @@ class LoginViewModel @Inject constructor(
                     _correo.value = credentials.correo
                     _contraseña.value = credentials.contraseña
                     _loginSta.value = true
+                    Log.d("LoginViewModel", "Token: ${response.getOrNull()?.token}")
                     dataStorage.saveToken(response.getOrNull()?.token!!)
                 }else{
                     Log.d("LoginViewModel", "Error linea 45: $response")
@@ -55,6 +56,13 @@ class LoginViewModel @Inject constructor(
                 Log.e("LoginViewModel", "Error linea 49: ${e.message}")
                 _loginSta.value = false
             }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            dataStorage.deleteToken()
+            _loginSta.value = false
         }
     }
 }

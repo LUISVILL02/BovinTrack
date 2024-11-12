@@ -32,7 +32,7 @@ fun FormLogin(
     val contraseña by loginViewModel.contraseña.collectAsState("")
     val feedback by loginViewModel.feedback.collectAsState("")
 
-    Column (modifier = Modifier.fillMaxSize()){
+    Column (modifier = Modifier){
         Text(text = "Bienvenido de vuelta")
         Spacer(modifier = Modifier.height(16.dp))
         TextField(

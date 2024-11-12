@@ -1,14 +1,10 @@
-package com.seminario.bovintrack.ui.view.auth
+package com.seminario.bovintrack.ui.view.propietario.screens
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -16,11 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.seminario.bovintrack.ui.navigate.NavigationItem
+import com.seminario.bovintrack.ui.view.auth.TopBar
+import com.seminario.bovintrack.ui.view.propietario.components.FormBovino
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController){
+fun AgregarBovinoScreen(
+    navController: NavController,
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold (
@@ -29,24 +28,14 @@ fun LoginScreen(navController: NavController){
             TopBar(navController)
         },
         content = { innerPadding ->
-            Column(
+            Column (
                 modifier = Modifier
                     .padding(innerPadding)
                     .padding(16.dp)
-                    .fillMaxHeight(),
-                verticalArrangement = Arrangement.Center
+                    .fillMaxSize()
             ) {
-                FormLogin(navController)
-                Spacer(modifier = Modifier.padding(16.dp))
-                Text(text = "¿No tienes una cuenta?")
-                Spacer(modifier = Modifier.padding(16.dp))
-                Button(
-                    onClick = {
-                        navController.navigate(NavigationItem.Register.route)
-                    }
-                ) {
-                    Text(text = "Registrate")
-                }
+
+                FormBovino(navController)
             }
         }
     )

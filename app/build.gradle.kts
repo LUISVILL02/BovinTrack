@@ -46,7 +46,10 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            pickFirsts += "/META-INF/license.txt"
+            pickFirsts += "/META-INF/NOTICE"
+            pickFirsts += "/META-INF/notice.txt"
+            pickFirsts += "/META-INF/LICENSE"
         }
     }
 }
@@ -73,6 +76,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
@@ -89,6 +94,10 @@ dependencies {
 
     //Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    //websocket
+    implementation("org.java-websocket:Java-WebSocket:1.5.2")
+    implementation("org.springframework:spring-messaging:5.3.18")
 }
 
 kapt {

@@ -1,9 +1,8 @@
-package com.seminario.bovintrack.ui.view.auth
+package com.seminario.bovintrack.ui.view.propietario.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -17,10 +16,11 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.seminario.bovintrack.ui.navigate.NavigationItem
+import com.seminario.bovintrack.ui.view.auth.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController){
+fun HomeScreenProp(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold (
@@ -32,20 +32,25 @@ fun LoginScreen(navController: NavController){
             Column(
                 modifier = Modifier
                     .padding(innerPadding)
-                    .padding(16.dp)
-                    .fillMaxHeight(),
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                FormLogin(navController)
-                Spacer(modifier = Modifier.padding(16.dp))
-                Text(text = "¿No tienes una cuenta?")
+                Text(text = "Screen del propietario")
                 Spacer(modifier = Modifier.padding(16.dp))
                 Button(
                     onClick = {
-                        navController.navigate(NavigationItem.Register.route)
+                        navController.navigate(NavigationItem.MapBovi.route)
                     }
                 ) {
-                    Text(text = "Registrate")
+                    Text(text = "Mapa de bovinos")
+                }
+                Spacer(modifier = Modifier.padding(16.dp))
+                Button(
+                    onClick = {
+                        navController.navigate(NavigationItem.ListBovi.route)
+                    }
+                ) {
+                    Text(text = "Lista de bovinos")
                 }
             }
         }

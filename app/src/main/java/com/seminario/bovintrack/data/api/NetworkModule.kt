@@ -2,6 +2,7 @@ package com.seminario.bovintrack.data.api
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.seminario.bovintrack.data.preferences.TokenPreference
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -39,10 +41,17 @@ object NetworkModule {
 
     @Singleton
     @Provides
+    fun providesAuthInterceptor(tokenProvider: TokenPreference): AuthInterceptor {
+        return AuthInterceptor(tokenProvider)
+    }
+
+    @Singleton
+    @Provides
     fun providesRetrofit(okHttpClient: OkHttpClient) : Retrofit {
         return Retrofit.Builder()
             .baseUrl(url)
             .client(okHttpClient)
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
