@@ -98,6 +98,9 @@ dependencies {
     //websocket
     implementation("org.java-websocket:Java-WebSocket:1.5.2")
     implementation("org.springframework:spring-messaging:5.3.18")
+
+    //Google maps
+    implementation ("com.google.maps.android:maps-compose:4.4.1")
 }
 
 kapt {

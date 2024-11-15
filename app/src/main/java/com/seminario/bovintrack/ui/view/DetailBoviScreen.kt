@@ -1,8 +1,9 @@
-package com.seminario.bovintrack.ui.view.propietario.screens
+package com.seminario.bovintrack.ui.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,7 +21,10 @@ import com.seminario.bovintrack.ui.view.auth.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreenProp(navController: NavController) {
+fun DetailBoviScreen(
+    navController: NavController,
+    bovinoId: String
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold (
@@ -35,22 +39,14 @@ fun HomeScreenProp(navController: NavController) {
                     .padding(16.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(text = "Propietario")
+                Text(text = "Detalle del bovino con id: $bovinoId")
                 Spacer(modifier = Modifier.padding(16.dp))
                 Button(
                     onClick = {
-                        navController.navigate(NavigationItem.Fincas.route)
+                        navController.navigate(NavigationItem.OnlyUbiBovi.createRoute(bovinoId))
                     }
                 ) {
-                    Text(text = "Ver mis fincas")
-                }
-                Spacer(modifier = Modifier.padding(16.dp))
-                Button(
-                    onClick = {
-                        navController.navigate(NavigationItem.ListBovi.route)
-                    }
-                ) {
-                    Text(text = "Lista de bovinos")
+                    Text(text = "Ver ubicación")
                 }
             }
         }
