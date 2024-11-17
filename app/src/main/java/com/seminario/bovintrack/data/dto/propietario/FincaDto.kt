@@ -9,6 +9,7 @@ data class FincaDto(
     @SerializedName("numeroPotreros") val numeroPotreros: Int,
     @SerializedName("longitud") val longitud: Double,
     @SerializedName("latitud") val latitud: Double,
-    @SerializedName("idPropietario") val idPropietario: UUID,
+    @SerializedName("nombrePropietario") val nombrePropietario: String,
+    @SerializedName("nombreCapataz") val nombreCapataz: String,
     @SerializedName("potreros") val potreros: Set<PotreroDto>
 )

@@ -15,8 +15,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authUseCase: AuthUseCase,
-    private val dataStorage: TokenPreference
+    private val dataStorage: TokenPreference,
 ) : ViewModel() {
+
     private val _loginSta = MutableStateFlow(false)
     val status: StateFlow<Boolean> = _loginSta
 

@@ -1,5 +1,6 @@
 package com.seminario.bovintrack.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seminario.bovintrack.data.dto.auth.User
@@ -27,6 +28,7 @@ class UserViewModel @Inject constructor(
                     val user = decode.decodeJwt(token)
                     _user.value = user
                 } else {
+                    Log.i("UserViewModel", "Token is null")
                     _user.value = null
                 }
             }

@@ -12,70 +12,39 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.seminario.bovintrack.data.dto.propietario.FincaDto
-import com.seminario.bovintrack.data.dto.propietario.PotreroDto
 import com.seminario.bovintrack.ui.navigate.NavigationItem
 import com.seminario.bovintrack.ui.view.auth.TopBar
 import com.seminario.bovintrack.ui.view.propietario.components.CardFincas
-import java.util.UUID
+import com.seminario.bovintrack.ui.viewmodel.UserViewModel
+import com.seminario.bovintrack.ui.viewmodel.propietario.ListFincasViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListFincas(navController: NavController) {
+fun ListFincas(
+    navController: NavController,
+    viewModel: ListFincasViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
-    val finca1 = FincaDto(
-        id = UUID.randomUUID(),
-        nombre = "Delicias",
-        numeroPotreros = 8,
-        longitud = 20.576004,
-        latitud = -84.420458,
-        idPropietario = UUID.randomUUID(),
-        potreros = setOf(
-            PotreroDto(
-                id = UUID.randomUUID(),
-                longitud = 20.576004,
-                latitud = -84.420458,
-                area = 500
-            ),
-            PotreroDto(
-                id = UUID.randomUUID(),
-                longitud = 20.578004,
-                latitud = -84.422458,
-                area = 450
-            )
-        )
-    )
 
-    val finca2 = FincaDto(
-        id = UUID.randomUUID(),
-        nombre = "El Paraíso",
-        numeroPotreros = 6,
-        longitud = 19.576004,
-        latitud = -85.420458,
-        idPropietario = UUID.randomUUID(),
-        potreros = setOf(
-            PotreroDto(
-                id = UUID.randomUUID(),
-                longitud = 19.576004,
-                latitud = -85.420458,
-                area = 400
-            ),
-            PotreroDto(
-                id = UUID.randomUUID(),
-                longitud = 19.578004,
-                latitud = -85.422458,
-                area = 350
-            )
-        )
-    )
+    val fincas by viewModel.fincas.collectAsState()
+    val user by userViewModel.user.collectAsState()
 
-// Lista de fincas
-    val listaFincas = listOf(finca1, finca2)
+    LaunchedEffect(user) {
+        userViewModel.loadUserFromToken()
+        user?.let {
+            viewModel.getFincasPorPropietario(it.id)
+        }
+    }
 
     Scaffold (
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -90,8 +59,8 @@ fun ListFincas(navController: NavController) {
                         .padding(innerPadding)
                         .padding(16.dp)
                 ) {
-                    items(listaFincas.size) { index ->
-                        CardFincas(finca = listaFincas[index], navController = navController)
+                    items(fincas.size) { index ->
+                        CardFincas(finca = fincas[index], navController = navController)
                         Spacer(modifier = Modifier.padding(16.dp))
                     }
                 }

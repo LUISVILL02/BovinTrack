@@ -15,21 +15,33 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.seminario.bovintrack.ui.navigate.NavigationItem
 import com.seminario.bovintrack.ui.viewmodel.TopBarViewModel
+import com.seminario.bovintrack.ui.viewmodel.UserViewModel
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    topBarViewModel: TopBarViewModel = hiltViewModel()
+    topBarViewModel: TopBarViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel()
 ) {
     val token by topBarViewModel.isToken.collectAsState()
+    val user by userViewModel.user.collectAsState()
     LaunchedEffect(key1 = true) {
+        userViewModel.loadUserFromToken()
         delay(1000)
         if (!token) navController.navigate(NavigationItem.Login.route) {
             popUpTo(NavigationItem.Login.route) { inclusive = true }
         }
-        else navController.navigate(NavigationItem.Home.route)
+        else {
+            user?.let {
+                if (it.roles == "ADMIN") {
+                    navController.navigate(NavigationItem.AdminHome.route)
+                } else {
+                    navController.navigate(NavigationItem.Home.route)
+                }
+            }
+        }
     }
     Column(
         modifier = modifier.fillMaxSize()

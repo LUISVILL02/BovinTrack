@@ -12,11 +12,14 @@ import com.seminario.bovintrack.ui.view.ListFincas
 import com.seminario.bovintrack.ui.view.MapBovi
 import com.seminario.bovintrack.ui.view.OnlyUbiBoviScreen
 import com.seminario.bovintrack.ui.view.SplashScreen
+import com.seminario.bovintrack.ui.view.admin.screens.HomeAdmin
 import com.seminario.bovintrack.ui.view.auth.LoginScreen
 import com.seminario.bovintrack.ui.view.auth.RegisterScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.AgregarBovinoScreen
+import com.seminario.bovintrack.ui.view.propietario.screens.FincaDetailsScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.HomeScreenProp
 import com.seminario.bovintrack.ui.view.propietario.screens.ListaBovinos
+import java.util.UUID
 
 @Composable
 fun AppNavHost(
@@ -46,6 +49,18 @@ fun AppNavHost(
         composable(NavigationItem.Fincas.route){
             ListFincas(navController = navController)
         }
+        composable(
+            route = NavigationItem.Finca.route,
+            arguments = listOf(navArgument("fincaId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val fincaIdString =  backStackEntry.arguments?.getString("fincaId") ?: ""
+            val fincaId = try {
+                UUID.fromString(fincaIdString)
+            } catch (e: IllegalArgumentException) {
+                null
+            }
+            FincaDetailsScreen(navController = navController, fincaId = fincaId!!)
+        }
 
         composable(NavigationItem.MapBovi.route){
             MapBovi(navController = navController)
@@ -66,10 +81,21 @@ fun AppNavHost(
         }
         composable(
             route = NavigationItem.OnlyUbiBovi.route,
-            arguments = listOf(navArgument("bovinoId") { type = NavType.StringType })
+            arguments = listOf(navArgument("bovinoId") { type = NavType.StringType },
+                navArgument("sensorId") { type = NavType.StringType })
         ) { backStackEntry ->
             val bovinoId = backStackEntry.arguments?.getString("bovinoId") ?: ""
-            OnlyUbiBoviScreen(idBovino = bovinoId)
+            val sensorIdString = backStackEntry.arguments?.getString("sensorId") ?: ""
+            val sensorId = try {
+                UUID.fromString(sensorIdString)
+            } catch (e: IllegalArgumentException) {
+                null
+            }
+            OnlyUbiBoviScreen(bovinoId, sensorId = sensorId!!)
         }
+        composable(NavigationItem.AdminHome.route){
+            HomeAdmin(navController = navController)
+        }
+
     }
 }

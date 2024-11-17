@@ -23,18 +23,14 @@ fun CardFincas(
             .fillMaxWidth()
             .padding(16.dp)
             .clickable {
-                //navController.navigate(NavigationItem.DetailBovi.createRoute(bovino.codigo))
+                navController.navigate(NavigationItem.Finca.createRoute(finca.id))
             },
     ) {
-        Column {
+        Column (
+            modifier = Modifier.padding(16.dp)
+        ){
             // Nombre de la finca
             Text(text = "Nombre: ${finca.nombre}")
-            // Número de potreros
-            Text(text = "Número de potreros: ${finca.numeroPotreros}")
-            // Longitud
-            Text(text = "Longitud: ${finca.longitud}")
-            // Latitud
-            Text(text = "Latitud: ${finca.latitud}")
         }
     }
 }
