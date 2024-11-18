@@ -9,6 +9,7 @@ enum class Screen{
     HOME,
     FINCAS,
     FINCA,
+    MAP_FINCA,
     MAP_BOVI,
     LIST_BOVI,
     ADD_BOVI,
@@ -27,6 +28,9 @@ sealed class NavigationItem(
     object Fincas : NavigationItem(Screen.FINCAS.name)
     object Finca : NavigationItem("${Screen.FINCA.name}/{fincaId}") {
         fun createRoute(fincaId: UUID) = "${Screen.FINCA.name}/$fincaId"
+    }
+    object MapFinca : NavigationItem("${Screen.MAP_FINCA.name}/{fincaId}") {
+        fun createRoute(fincaId: UUID) = "${Screen.MAP_FINCA.name}/$fincaId"
     }
     object MapBovi : NavigationItem(Screen.MAP_BOVI.name)
     object ListBovi : NavigationItem(Screen.LIST_BOVI.name)

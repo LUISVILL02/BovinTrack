@@ -101,6 +101,9 @@ dependencies {
 
     //Google maps
     implementation ("com.google.maps.android:maps-compose:4.4.1")
+
+    //mapsUtil
+    implementation("com.google.maps.android:android-maps-utils:2.3.0")
 }
 
 kapt {

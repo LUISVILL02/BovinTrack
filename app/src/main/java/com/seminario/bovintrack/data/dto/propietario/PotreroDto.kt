@@ -8,6 +8,5 @@ data class PotreroDto(
     @SerializedName("longitud") val longitud: Double,
     @SerializedName("latitud") val latitud: Double,
     @SerializedName("area") val area: Int,
-    @SerializedName("coordenadas") val coordenadas: List<CooordenadasDto>,
-    @SerializedName("idFinca") val idFinca: UUID,
+    @SerializedName("coordenadas") val coordenadas: List<CoordenadasDto>,
 )

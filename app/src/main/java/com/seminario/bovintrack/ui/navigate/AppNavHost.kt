@@ -17,6 +17,7 @@ import com.seminario.bovintrack.ui.view.auth.LoginScreen
 import com.seminario.bovintrack.ui.view.auth.RegisterScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.AgregarBovinoScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.FincaDetailsScreen
+import com.seminario.bovintrack.ui.view.propietario.screens.FincaMapScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.HomeScreenProp
 import com.seminario.bovintrack.ui.view.propietario.screens.ListaBovinos
 import java.util.UUID
@@ -60,6 +61,19 @@ fun AppNavHost(
                 null
             }
             FincaDetailsScreen(navController = navController, fincaId = fincaId!!)
+        }
+
+        composable(
+            route = NavigationItem.MapFinca.route,
+            arguments = listOf(navArgument("fincaId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val fincaIdString =  backStackEntry.arguments?.getString("fincaId") ?: ""
+            val fincaId = try {
+                UUID.fromString(fincaIdString)
+            } catch (e: IllegalArgumentException) {
+                null
+            }
+            FincaMapScreen(navController = navController, idFinca = fincaId!!)
         }
 
         composable(NavigationItem.MapBovi.route){

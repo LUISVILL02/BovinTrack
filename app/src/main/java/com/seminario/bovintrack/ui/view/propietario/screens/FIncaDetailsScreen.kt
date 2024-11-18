@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -97,7 +96,7 @@ fun FincaDetailsScreen(
                 Spacer(modifier = Modifier.padding(16.dp))
                 Button(
                     onClick = {
-
+                        navController.navigate(NavigationItem.MapFinca.createRoute(fincaId))
                     }
                 ) {
                     Text(text = "Potreros")
