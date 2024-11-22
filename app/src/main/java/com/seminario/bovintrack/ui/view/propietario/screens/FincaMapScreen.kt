@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,26 +22,45 @@ import androidx.navigation.NavController
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polygon
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.seminario.bovintrack.ui.viewmodel.PotreroViewModel
+import com.seminario.bovintrack.ui.viewmodel.UserViewModel
+import com.seminario.bovintrack.ui.viewmodel.WebSocketViewModel
+import com.seminario.bovintrack.websocket.connectToStomp
 import java.util.UUID
 
 @Composable
 fun FincaMapScreen(
     navController: NavController,
     idFinca: UUID,
-    potreroViewModel: PotreroViewModel = hiltViewModel()
+    potreroViewModel: PotreroViewModel = hiltViewModel(),
+    userViewModel: UserViewModel = hiltViewModel(),
+    webSocketViewModel: WebSocketViewModel = hiltViewModel(),
 ) {
     val isSave by potreroViewModel.isSave.collectAsState()
     val potreros by potreroViewModel.potreros.collectAsState()
     val poligono by potreroViewModel.poligono.collectAsState()
     val isSavePotrero by potreroViewModel.isSavePotrero.collectAsState()
 
+    val user by userViewModel.user.collectAsState()
+    val sensores by webSocketViewModel.sensores.collectAsState()
+
     LaunchedEffect(potreros) {
         potreroViewModel.getPotreroByIdFinca(idFinca)
         Log.d("Potreros", "Potreros de la finca: $idFinca $potreros")
+        userViewModel.loadUserFromToken()
     }
+
+    if (user != null) {
+        connectToStomp(user!!, webSocketViewModel)
+        Log.d("FincaMapScreen", "Connected to Stomp")
+    } else {
+        Log.d("FincaMapScreen", "User is null")
+    }
+
 
     val positionD = LatLng(11.0, -74.0)
     val cameraPositionState = rememberCameraPositionState {
@@ -92,6 +112,13 @@ fun FincaMapScreen(
                         Log.d("FincaMapScreen", "No hay coordenadas asignadas a su potrero")
                     }
                 }
+            }
+            sensores.values.forEach { sensor ->
+                Marker(
+                    state = MarkerState(position = LatLng(sensor.latitud, sensor.longitud)),
+                    title = "Sensor ${sensor.id}",
+                    snippet = "Lat: ${sensor.latitud}, Lon: ${sensor.longitud}"
+                )
             }
 
             if (isSave && poligono.isNotEmpty()) {

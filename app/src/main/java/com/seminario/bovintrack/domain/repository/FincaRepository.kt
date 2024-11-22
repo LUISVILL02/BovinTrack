@@ -4,6 +4,8 @@ import android.util.Log
 import com.seminario.bovintrack.data.api.propietario.FincaApiService
 import com.seminario.bovintrack.data.dto.PaginatedResponse
 import com.seminario.bovintrack.data.dto.propietario.FincaDto
+import com.seminario.bovintrack.data.dto.propietario.save.FincaDtoSave
+import org.json.JSONObject
 import java.util.UUID
 import javax.inject.Inject
 
@@ -26,15 +28,22 @@ class FincaRepository @Inject constructor(
         }
     }
 
-    suspend fun createFinca(idPropietario: UUID, finca: FincaDto): Result<FincaDto> {
+    suspend fun createFinca(idPropietario: UUID, finca: FincaDtoSave): Result<FincaDto> {
         return try {
             val response = fincaApiService.createFinca(idPropietario, finca)
             if (response.isSuccessful) {
                 Log.d("FincaRepository", "Response successful: ${response.body()}")
                 Result.success(response.body()!!)
             } else {
-                Log.d("FincaRepository", "Response unsuccessful: ${response.errorBody()?.string()}")
-                Result.failure(Exception(response.errorBody()?.string()))
+                val errorBody = response.errorBody()?.string() ?: "Error desconocido"
+                val errorMessage = try {
+                    val jsonObject = JSONObject(errorBody)
+                    jsonObject.optString("message", "Error desconocido")
+                } catch (e: Exception) {
+                    "Error al procesar el mensaje de error"
+                }
+                Log.d("FincaRepository", "Response unsuccessful: $errorMessage")
+                return Result.failure(Exception(errorMessage))
             }
         } catch (e: Exception) {
             Result.failure(e)

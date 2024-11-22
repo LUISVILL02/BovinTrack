@@ -1,6 +1,7 @@
 package com.seminario.bovintrack.data.api.propietario
 
 import com.seminario.bovintrack.data.dto.propietario.BovinoDto
+import com.seminario.bovintrack.data.dto.propietario.save.BovinoDtoSave
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -18,5 +19,5 @@ interface BovinoService {
     suspend fun getBovinoById(@Path("id") idBovino: String): Response<BovinoDto>
 
     @POST("bovinos")
-    suspend fun createBovino(bovino: BovinoDto): Response<BovinoDto>
+    suspend fun createBovino(bovino: BovinoDtoSave): Response<BovinoDto>
 }

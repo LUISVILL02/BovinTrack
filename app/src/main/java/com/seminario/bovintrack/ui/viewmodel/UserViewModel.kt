@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.seminario.bovintrack.data.dto.auth.User
+import com.seminario.bovintrack.data.dto.propietario.FincaDto
 import com.seminario.bovintrack.data.preferences.TokenPreference
+import com.seminario.bovintrack.domain.useCase.FincaUseCase
 import com.seminario.bovintrack.utils.TokenDecode
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val dataStorage: TokenPreference,
-    private val decode: TokenDecode
+    private val decode: TokenDecode,
 ) : ViewModel(){
 
     private val _user = MutableStateFlow<User?>(null)

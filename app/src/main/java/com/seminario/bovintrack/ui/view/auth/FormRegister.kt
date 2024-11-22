@@ -104,6 +104,7 @@ fun FormRegister(
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
+                println(propietario)
                 registerViewModel.register(RegisterDto(nombre, apellido,
                     identificacion, correo, contraseña, propietario,
                     if(isChecked) "CAPATAZ" else "PROPIETARIO"))
@@ -111,7 +112,7 @@ fun FormRegister(
             Text(text = "Registrarse")
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "$feedback")
+        Text(text = feedback)
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {

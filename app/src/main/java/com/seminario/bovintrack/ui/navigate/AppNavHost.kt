@@ -16,6 +16,7 @@ import com.seminario.bovintrack.ui.view.admin.screens.HomeAdmin
 import com.seminario.bovintrack.ui.view.auth.LoginScreen
 import com.seminario.bovintrack.ui.view.auth.RegisterScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.AgregarBovinoScreen
+import com.seminario.bovintrack.ui.view.propietario.screens.CrearFincaScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.FincaDetailsScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.FincaMapScreen
 import com.seminario.bovintrack.ui.view.propietario.screens.HomeScreenProp
@@ -49,6 +50,9 @@ fun AppNavHost(
         }
         composable(NavigationItem.Fincas.route){
             ListFincas(navController = navController)
+        }
+        composable(NavigationItem.CreateFinca.route){
+            CrearFincaScreen(navController = navController)
         }
         composable(
             route = NavigationItem.Finca.route,

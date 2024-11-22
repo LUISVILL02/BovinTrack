@@ -8,6 +8,7 @@ enum class Screen{
     REGISTER,
     HOME,
     FINCAS,
+    CREATE_FINCA,
     FINCA,
     MAP_FINCA,
     MAP_BOVI,
@@ -26,6 +27,7 @@ sealed class NavigationItem(
     object Register : NavigationItem(Screen.REGISTER.name)
     object Home : NavigationItem(Screen.HOME.name)
     object Fincas : NavigationItem(Screen.FINCAS.name)
+    object CreateFinca : NavigationItem(Screen.CREATE_FINCA.name)
     object Finca : NavigationItem("${Screen.FINCA.name}/{fincaId}") {
         fun createRoute(fincaId: UUID) = "${Screen.FINCA.name}/$fincaId"
     }

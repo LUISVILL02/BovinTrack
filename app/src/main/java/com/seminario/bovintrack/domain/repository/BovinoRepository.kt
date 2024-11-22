@@ -3,6 +3,7 @@ package com.seminario.bovintrack.domain.repository
 import android.util.Log
 import com.seminario.bovintrack.data.api.propietario.BovinoService
 import com.seminario.bovintrack.data.dto.propietario.BovinoDto
+import com.seminario.bovintrack.data.dto.propietario.save.BovinoDtoSave
 import java.util.UUID
 import javax.inject.Inject
 
@@ -50,7 +51,7 @@ class BovinoRepository @Inject constructor(
         }
     }
 
-    suspend fun createBovino(bovino: BovinoDto) : Result<BovinoDto> {
+    suspend fun createBovino(bovino: BovinoDtoSave) : Result<BovinoDto> {
         return try {
             val response = bovinoService.createBovino(bovino)
             if (response.isSuccessful) {

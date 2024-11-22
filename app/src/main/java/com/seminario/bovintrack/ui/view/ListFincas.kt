@@ -72,7 +72,7 @@ fun ListFincas(
                         .align(Alignment.BottomCenter)
                         .padding(16.dp),
                     onClick = {
-                        navController.navigate(NavigationItem.AddBovi.route)
+                        navController.navigate(NavigationItem.CreateFinca.route)
                     }
                 ) {
                     Text(text = "Agregar finca")

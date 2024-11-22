@@ -2,12 +2,11 @@ package com.seminario.bovintrack.data.dto.propietario.save
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
-import java.time.LocalDate
 import java.util.UUID
 
 data class BovinoDtoSave(
-    @SerializedName("fechaNacimiento") val fechaNacimiento: LocalDate,
-    @SerializedName("fechaIngreso") val fechaIngreso: LocalDate,
+    @SerializedName("fechaNacimiento") val fechaNacimiento: String,
+    @SerializedName("fechaIngreso") val fechaIngreso: String,
     @SerializedName("sexo") val sexo: Char,
     @SerializedName("pesoEntrada") val pesoEntrada: BigDecimal,
     @SerializedName("imagen") val imagen: String?,

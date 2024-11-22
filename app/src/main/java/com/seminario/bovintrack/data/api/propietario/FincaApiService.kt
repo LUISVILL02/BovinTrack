@@ -2,7 +2,9 @@ package com.seminario.bovintrack.data.api.propietario
 
 import com.seminario.bovintrack.data.dto.PaginatedResponse
 import com.seminario.bovintrack.data.dto.propietario.FincaDto
+import com.seminario.bovintrack.data.dto.propietario.save.FincaDtoSave
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -21,7 +23,7 @@ interface FincaApiService {
     @POST("finca/{idPropietario}")
     suspend fun createFinca(
         @Path("idPropietario") idPropietario: UUID,
-        finca: FincaDto
+        @Body finca: FincaDtoSave
     ): Response<FincaDto>
 
     @PUT("finca/{idFinca}/{idCapataz}")

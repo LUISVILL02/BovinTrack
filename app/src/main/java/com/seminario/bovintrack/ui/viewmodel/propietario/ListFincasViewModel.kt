@@ -36,25 +36,4 @@ class ListFincasViewModel @Inject constructor(
         }
     }
 
-    fun createFinca(idPropietario: UUID, finca: FincaDto) {
-        viewModelScope.launch {
-            val response = fincaUseCase.createFinca(idPropietario, finca)
-            if (response.isSuccess) {
-                _createFinca.value = true
-            }else{
-                _createFinca.value = false
-            }
-        }
-    }
-
-    fun asignarCapataz(idFinca: UUID, idCapataz: UUID) {
-        viewModelScope.launch {
-            val response = fincaUseCase.asignarCapataz(idFinca, idCapataz)
-            if (response.isSuccess) {
-                _asignarCapataz.value = true
-            }else{
-                _asignarCapataz.value = false
-            }
-        }
-    }
 }

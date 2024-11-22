@@ -50,7 +50,7 @@ fun OnlyUbiBoviScreen(
         Log.d("OnlyUbiBoviScreen", "Sensores activos: $sensores")
     }
 
-    val positionD = LatLng(11.0, -74.0)
+    val positionD = LatLng(bovinoUbi?.latitud ?: 10.0, bovinoUbi?.longitud?: -74.0)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(positionD, 5f)
     }

@@ -14,7 +14,7 @@ fun connectToStomp(
     webSocketViewModel: WebSocketViewModel
 ) {
     var client: WebSocketClient
-    val uri = URI("ws://192.168.80.23:8090/ws-datos")
+    val uri = URI("ws://192.168.80.18:8090/ws-datos")
     client = object : WebSocketClient(uri) {
         override fun onOpen(handshakedata: ServerHandshake?) {
             Log.i("WebSocket", "Connected to STOMP server")

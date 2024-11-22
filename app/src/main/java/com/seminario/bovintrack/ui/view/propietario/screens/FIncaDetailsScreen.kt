@@ -68,38 +68,34 @@ fun FincaDetailsScreen(
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center
             ) {
-                Column (
-                    modifier = Modifier
-                        .padding(top = 30.dp)
-                ){
-                    Text(text = "Nombre: ${finca?.nombre}")
-                    Spacer(modifier = Modifier.padding(16.dp))
-                    Text(text = "Propietario: ${finca?.nombrePropietario}")
-                    Spacer(modifier = Modifier.padding(16.dp))
-                    Text(text = "Capataz: ${finca?.nombreCapataz}")
-                    Spacer(modifier = Modifier.padding(16.dp))
-                    Text(text = "Finca: $fincaId")
-                    Spacer(modifier = Modifier.padding(16.dp))
-                    Text(text = "Número de potreros: ${finca?.numeroPotreros}")
-                    Spacer(modifier = Modifier.padding(16.dp))
-                    Text(text = "Ubicación: ${finca?.latitud}, ${finca?.longitud}")
-                    Spacer(modifier = Modifier.padding(16.dp))
-                }
-                Spacer(modifier = Modifier.padding(16.dp))
-                Button(
-                    onClick = {
-                        navController.navigate(NavigationItem.MapBovi.route)
+                if (finca?.id == null) {
+                    Text(text = "No tienes finca asignada...")
+                }else{
+                    Column (
+                        modifier = Modifier
+                            .padding(top = 30.dp)
+                    ){
+                        Text(text = "Nombre: ${finca?.nombre}")
+                        Spacer(modifier = Modifier.padding(16.dp))
+                        Text(text = "Propietario: ${finca?.nombrePropietario}")
+                        Spacer(modifier = Modifier.padding(16.dp))
+                        Text(text = "Capataz: ${finca?.nombreCapataz}")
+                        Spacer(modifier = Modifier.padding(16.dp))
+                        Text(text = "Finca: ${finca?.id}")
+                        Spacer(modifier = Modifier.padding(16.dp))
+                        Text(text = "Número de potreros: ${finca?.numeroPotreros}")
+                        Spacer(modifier = Modifier.padding(16.dp))
+                        Text(text = "Ubicación: ${finca?.latitud}, ${finca?.longitud}")
+                        Spacer(modifier = Modifier.padding(16.dp))
                     }
-                ) {
-                    Text(text = "Ubicaciones de bovinos")
-                }
-                Spacer(modifier = Modifier.padding(16.dp))
-                Button(
-                    onClick = {
-                        navController.navigate(NavigationItem.MapFinca.createRoute(fincaId))
+                    Spacer(modifier = Modifier.padding(16.dp))
+                    Button(
+                        onClick = {
+                            navController.navigate(NavigationItem.MapFinca.createRoute(finca?.id!!))
+                        }
+                    ) {
+                        Text(text = "Potreros")
                     }
-                ) {
-                    Text(text = "Potreros")
                 }
             }
         }

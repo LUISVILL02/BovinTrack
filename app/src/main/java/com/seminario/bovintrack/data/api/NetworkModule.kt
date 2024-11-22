@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private val url = "http://192.168.80.23:8090/Api-Monitoreo/V1.0.0/"
+    private val url = "http://192.168.80.18:8090/Api-Monitoreo/V1.0.0/"
     private val gson: Gson = GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
 
     @Provides
