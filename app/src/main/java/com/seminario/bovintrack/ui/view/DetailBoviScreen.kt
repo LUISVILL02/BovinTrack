@@ -2,6 +2,7 @@ package com.seminario.bovintrack.ui.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -68,12 +69,22 @@ fun DetailBoviScreen(
                 Spacer(modifier = Modifier.padding(16.dp))
                 Text(text = "Propietario: ${bovino?.nombrePropietario}")
                 Spacer(modifier = Modifier.padding(16.dp))
-                Button(
-                    onClick = {
-                        navController.navigate(NavigationItem.OnlyUbiBovi.createRoute(bovinoId, bovino!!.codigoSensor))
+                Row {
+                    Button(
+                        onClick = {
+                            navController.navigate(NavigationItem.OnlyUbiBovi.createRoute(bovinoId, bovino!!.codigoSensor))
+                        }
+                    ) {
+                        Text(text = "Ver ubicación")
                     }
-                ) {
-                    Text(text = "Ver ubicación")
+                    Spacer(modifier = Modifier.padding(16.dp))
+                    Button(
+                        onClick = {
+                            navController.navigate(NavigationItem.Historial.createRoute(bovinoId))
+                        }
+                    ) {
+                        Text(text = "Ubicaciones, historial")
+                    }
                 }
             }
         }

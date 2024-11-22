@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navArgument
 import com.seminario.bovintrack.ui.view.DetailBoviScreen
+import com.seminario.bovintrack.ui.view.HistorialUbiScreen
 import com.seminario.bovintrack.ui.view.ListFincas
 import com.seminario.bovintrack.ui.view.MapBovi
 import com.seminario.bovintrack.ui.view.OnlyUbiBoviScreen
@@ -113,6 +114,14 @@ fun AppNavHost(
         }
         composable(NavigationItem.AdminHome.route){
             HomeAdmin(navController = navController)
+        }
+
+        composable(
+            route =NavigationItem.Historial.route,
+            arguments = listOf(navArgument("bovinoId") { type = NavType.StringType })
+        ){ backStackEntry ->
+            val bovinoId = backStackEntry.arguments?.getString("bovinoId") ?: ""
+            HistorialUbiScreen(navController = navController, bovinoId = bovinoId)
         }
 
     }

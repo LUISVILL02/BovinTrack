@@ -1,6 +1,7 @@
 package com.seminario.bovintrack.data.api.propietario
 
 import com.seminario.bovintrack.data.dto.propietario.BovinoDto
+import com.seminario.bovintrack.data.dto.propietario.HistorialUbiDto
 import com.seminario.bovintrack.data.dto.propietario.save.BovinoDtoSave
 import retrofit2.Response
 import retrofit2.http.GET
@@ -20,4 +21,8 @@ interface BovinoService {
 
     @POST("bovinos")
     suspend fun createBovino(bovino: BovinoDtoSave): Response<BovinoDto>
+
+    @GET("historial/{idBovino}")
+    suspend fun getHistorialUbi(@Path("idBovino") idBovino: String): Response<List<HistorialUbiDto>>
+
 }

@@ -3,6 +3,7 @@ package com.seminario.bovintrack.domain.repository
 import android.util.Log
 import com.seminario.bovintrack.data.api.propietario.BovinoService
 import com.seminario.bovintrack.data.dto.propietario.BovinoDto
+import com.seminario.bovintrack.data.dto.propietario.HistorialUbiDto
 import com.seminario.bovintrack.data.dto.propietario.save.BovinoDtoSave
 import java.util.UUID
 import javax.inject.Inject
@@ -54,6 +55,19 @@ class BovinoRepository @Inject constructor(
     suspend fun createBovino(bovino: BovinoDtoSave) : Result<BovinoDto> {
         return try {
             val response = bovinoService.createBovino(bovino)
+            if (response.isSuccessful) {
+                Result.success(response.body()!!)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string()))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getHistorialUbi(idBovino: String) : Result<List<HistorialUbiDto>> {
+        return try {
+            val response = bovinoService.getHistorialUbi(idBovino)
             if (response.isSuccessful) {
                 Result.success(response.body()!!)
             } else {

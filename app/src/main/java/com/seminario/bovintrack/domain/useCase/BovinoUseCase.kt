@@ -1,6 +1,7 @@
 package com.seminario.bovintrack.domain.useCase
 
 import com.seminario.bovintrack.data.dto.propietario.BovinoDto
+import com.seminario.bovintrack.data.dto.propietario.HistorialUbiDto
 import com.seminario.bovintrack.data.dto.propietario.save.BovinoDtoSave
 import com.seminario.bovintrack.domain.repository.BovinoRepository
 import java.util.UUID
@@ -20,5 +21,8 @@ class BovinoUseCase @Inject constructor(
     }
     suspend fun createBovino(bovino: BovinoDtoSave) : Result<BovinoDto> {
         return bovinoRepository.createBovino(bovino)
+    }
+    suspend fun getHistorialUbi(idBovino: String) : Result<List<HistorialUbiDto>> {
+        return bovinoRepository.getHistorialUbi(idBovino)
     }
 }

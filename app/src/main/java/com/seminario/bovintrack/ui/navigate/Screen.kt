@@ -17,6 +17,7 @@ enum class Screen{
     DETAIL_BOVI,
     ONLY_UBI_BOVI,
     ADMIN_HOME,
+    HISTORIAL
 }
 
 sealed class NavigationItem(
@@ -44,4 +45,7 @@ sealed class NavigationItem(
         fun createRoute(bovinoId: String, sensorId: UUID) = "${Screen.ONLY_UBI_BOVI.name}/bovino/$bovinoId/$sensorId"
     }
     object AdminHome : NavigationItem(Screen.ADMIN_HOME.name)
+    object Historial : NavigationItem("${Screen.HISTORIAL.name}/{bovinoId}") {
+        fun createRoute(bovinoId: String) = "${Screen.HISTORIAL.name}/$bovinoId"
+    }
 }
